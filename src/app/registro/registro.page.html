@@ -1,12 +1,14 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
     <ion-title>
-      Inicio de sesion
+      Registro
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
   <div class="ion-text-center">
     <div class="title">
       <h1>SkeletonApp</h1>
@@ -41,11 +43,24 @@
           <ion-label color="danger" *ngIf="usuario.get('contrasena')?.hasError('pattern')">
             La contraseña debe contener solo caracteres numéricos.
           </ion-label>
-          <ion-button (click)="goToPagina1()" type="submit" [disabled]="!usuario.valid">Ingresar</ion-button>
+
+            <ion-item>
+              <ion-select [(ngModel)]="regionSeleccionada" (ionChange)="cargarComuna()" placeholder="Seleccione Region">
+                <ion-select-option *ngFor="let i of regiones" [value]="i.id">{{i.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+            <ion-item>
+              <ion-select [disabled]="seleccionComuna" placeholder="Seleccione Comuna" [(ngModel)]="comunaSeleccionada" name="comunaSeleccionada">
+                <ion-select-option [value]="i.id" *ngFor="let i of comunas">{{i.nombre}}</ion-select-option>
+              </ion-select>
+            </ion-item>
+
+
+
+
+          <ion-button (click)="goToLogin()" type="submit" [disabled]="!usuario.valid">Ingresar</ion-button>
         </form>
       </ion-card-content>
-      <ion-button (click)="goToRegistro()" expand="full" color="secondary">Crear cuenta ahora</ion-button>
-      <ion-button expand="full" color="secondary">Recuperar contraseña</ion-button>
     </ion-card>
   </div>
-</ion-content>
